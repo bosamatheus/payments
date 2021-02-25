@@ -1,9 +1,5 @@
 defmodule Payments do
-  @moduledoc """
-  Payments keeps the contexts that define your domain
-  and business logic.
+  alias Payments.Users.Create, as: UserCreate
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  defdelegate create_user(params), to: UserCreate, as: :call
 end

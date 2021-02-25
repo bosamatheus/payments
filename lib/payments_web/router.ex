@@ -5,10 +5,12 @@ defmodule PaymentsWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", PaymentsWeb do
+  scope "/api/v1", PaymentsWeb do
     pipe_through :api
 
     get "/:filename", IndexController, :index
+
+    post "/users", UsersController, :create
   end
 
   # Enables LiveDashboard only for development

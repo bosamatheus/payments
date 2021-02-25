@@ -18,6 +18,10 @@ config :payments, PaymentsWeb.Endpoint,
   pubsub_server: Payments.PubSub,
   live_view: [signing_salt: "atQkIz77"]
 
+config :payments, Payments.Repo,
+  migration_primary_key: [type: :binary_id],
+  migration_foreign_key: [type: :binary_id]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
