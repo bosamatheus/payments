@@ -1,5 +1,5 @@
 defmodule PaymentsWeb.UsersView do
-  alias Payments.{User, Account}
+  alias Payments.{Account, User}
 
   def render("create.json", %{
         user: %User{

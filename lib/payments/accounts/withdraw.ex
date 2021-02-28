@@ -1,6 +1,6 @@
 defmodule Payments.Accounts.Withdraw do
-  alias Payments.Repo
   alias Payments.Accounts.Operation
+  alias Payments.Repo
 
   def call(params) do
     params
@@ -11,7 +11,7 @@ defmodule Payments.Accounts.Withdraw do
   defp run_transaction(multi) do
     case Repo.transaction(multi) do
       {:error, _operation, reason, _changes} -> {:error, reason}
-      {:ok, %{update_balance: account}} -> {:ok, account}
+      {:ok, %{account_withdraw: account}} -> {:ok, account}
     end
   end
 end

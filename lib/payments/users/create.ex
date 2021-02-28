@@ -1,6 +1,6 @@
 defmodule Payments.Users.Create do
   alias Ecto.Multi
-  alias Payments.{Repo, User, Account}
+  alias Payments.{Account, User, Repo}
 
   def call(params) do
     Multi.new()

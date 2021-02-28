@@ -1,11 +1,15 @@
 defmodule Payments.Accounts.Operation do
   alias Ecto.Multi
-  alias Payments.{Repo, Account}
+  alias Payments.Account
 
   def call(%{"id" => id, "value" => value}, operation) do
+    op_name = account_operation_name(operation)
+
     Multi.new()
-    |> Multi.run(:account, fn repo, _changes -> get_account(repo, id) end)
-    |> Multi.run(:update_balance, fn repo, %{account: account} ->
+    |> Multi.run(op_name, fn repo, _changes -> get_account(repo, id) end)
+    |> Multi.run(operation, fn repo, changes ->
+      account = Map.get(changes, op_name)
+
       update_balance(repo, account, value, operation)
     end)
   end
@@ -23,7 +27,7 @@ defmodule Payments.Accounts.Operation do
     |> update_account(repo, account)
   end
 
-  defp operate_values(%Account{balance: balance} = account, value, operation) do
+  defp operate_values(%Account{balance: balance}, value, operation) do
     value
     |> Decimal.cast()
     |> handle_cast(balance, operation)
@@ -40,5 +44,10 @@ defmodule Payments.Accounts.Operation do
     account
     |> Account.changeset(params)
     |> repo.update()
+  end
+
+  defp account_operation_name(op) do
+    "account_#{Atom.to_string(op)}"
+    |> String.to_atom()
   end
 end

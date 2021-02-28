@@ -12,7 +12,7 @@ defmodule PaymentsWeb.IndexController do
   defp handle_response({:ok, %{result: result}}, conn) do
     conn
     |> put_status(:ok)
-    |> json(%{message: "Welcome to Payments API. Here is your number #{result}"})
+    |> json(%{message: "Welcome to Payments API. The answer is #{result}"})
   end
 
   defp handle_response({:error, reason}, conn) do
