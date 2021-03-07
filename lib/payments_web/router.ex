@@ -14,8 +14,6 @@ defmodule PaymentsWeb.Router do
   scope "/api/v1", PaymentsWeb do
     pipe_through :api
 
-    get "/:filename", IndexController, :index
-
     post "/users", UsersController, :create
   end
 
